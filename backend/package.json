@@ -1,0 +1,37 @@
+{
+  "name": "movies-comparison-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Package management file for Movies Comparison App",
+  "main": "main.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test:coverage": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "repository": "https://github.com/gdpp/movie-compare-app",
+  "author": "Gustavo Perez",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "helmet": "^8.1.0",
+    "mysql2": "^3.18.2",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "cross-env": "^10.1.0",
+    "eslint": "^10.0.2",
+    "globals": "^17.3.0",
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.8.1",
+    "supertest": "^7.2.2"
+  }
+}
