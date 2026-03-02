@@ -54,7 +54,135 @@ Client → Backend API → MySQL Database
 
 #### Tooling
 
-- Yarn
 - Docker (for MySQL containerized setup)
+- Git
+- VS Code
+- Yarn
+- ChatGPT
 
-## How to Run
+## Local Development Setup
+
+### From Zero to Running
+
+> Nothing installed. Nothing configured. Just willingness and coffee.
+
+If you're starting from a completely clean machine, follow this guide step by step.
+
+If you already have Node.js, Git, and Docker installed, you can skip to **Step 5 – Clone and Run the Project.**
+
+#### 1. Install Git
+
+Required to clone the repository.
+
+Download and install:
+
+https://git-scm.com/downloads
+
+Verify installation:
+
+```bash
+git --version
+```
+
+#### 2. Install Node.js
+
+This project uses Node.js 18+ (recommended: latest LTS).
+
+Download from:
+
+https://nodejs.org/
+
+Verify installation:
+
+```bash
+node --version
+npm --version
+```
+
+#### 3. Install Yarn (Package Manager)
+
+We use Yarn instead of npm for consistency.
+
+Install globally:
+
+```bash
+npm install -g yarn
+```
+
+Verify:
+
+```bash
+yarn --version
+```
+
+#### 4. Database Setup (Choose One Option)
+
+The backend requires MySQL.
+
+You have two options:
+
+###### Option A (Recommended): Use Docker
+
+This ensures consistent environment across machines.
+
+Install Docker:
+
+https://www.docker.com/products/docker-desktop/
+
+Verify:
+
+```bash
+docker --version
+```
+
+run the docker-compose file
+
+```bash
+docker compose up -d
+```
+
+###### Option B: Install MySQL Locally
+
+Download:
+
+https://dev.mysql.com/downloads/mysql/
+
+During installation:
+
+Set root password
+
+Create a database named: **movie_compare**
+
+You can verify with:
+
+```bash
+mysql -u root -p
+```
+
+#### 5. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd movie-compare-app
+```
+
+#### 6. Backend Setup
+
+Create .env file based on .env.example.
+
+```env
+PORT=8000
+FRONTEND_URL=http://localhost:3000
+
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=movie_app
+DB_USER=root
+DB_PASSWORD=root || your_password
+
+OMDB_API_KEY=your_api_key_here
+```
+
+You must obtain a free API key from:
+
+https://www.omdbapi.com/apikey.aspx
