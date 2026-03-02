@@ -11,7 +11,7 @@ This project follows a monorepo structure with separated frontend and backend ap
 ```
 movie-compare-app/
 │
-├── backend/      → Node.js + Express + Sequelize + MySQL
+├── backend/      → Node.js + Koa + Sequelize + MySQL
 ├── frontend/     → React + Zustand + MUI
 └── README.md     → General documentation
 ```
@@ -39,7 +39,7 @@ Client → Backend API → MySQL Database
 #### Backend
 
 - Node.js
-- Express
+- Koa
 - Sequelize (ORM)
 - MySQL
 - Jest (unit & integration testing)
@@ -58,5 +58,3 @@ Client → Backend API → MySQL Database
 - Docker (for MySQL containerized setup)
 
 ## How to Run
-
-## Future Improvements

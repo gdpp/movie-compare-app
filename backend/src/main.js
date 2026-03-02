@@ -1,30 +1,31 @@
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
+import Koa from "koa";
+import Router from "@koa/router";
+import bodyParser from "koa-bodyparser";
+import cors from "@koa/cors";
+import helmet from "koa-helmet";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const app = express();
+const app = new Koa();
+const router = new Router();
 
 // Global Middlewares
 app.use(helmet());
-
 app.use(
   cors({
     origin: process.env.FRONTEND_URL || "http://localhost:5173",
   }),
 );
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser());
 
 // Health Check Route
-app.get("/health", (req, res) => {
-  res.status(200).json({
+router.get("/health", (ctx) => {
+  ctx.status = 200;
+  ctx.body = {
     success: true,
     message: "API is running",
-  });
+  };
 });
 
 // Routes Placeholder
@@ -42,5 +43,8 @@ app.use((err, req, res, next) => {
   });
 });
 */
+
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 export default app;
