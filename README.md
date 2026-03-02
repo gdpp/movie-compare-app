@@ -162,7 +162,7 @@ mysql -u root -p
 #### 5. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/gdpp/movie-compare-app.git
 cd movie-compare-app
 ```
 
