@@ -4,7 +4,7 @@ import globals from "globals";
 export default [
   js.configs.recommended,
 
-  // Configuración general para src
+  // General configuration for src
   {
     files: ["src/**/*.js"],
     languageOptions: {
@@ -16,9 +16,9 @@ export default [
     },
   },
 
-  // Configuración específica para tests
+  // General configuration for tests
   {
-    files: ["tests/**/*.js"],
+    files: ["**/tests/**/*.js", "**/*.test.js", "**/*.spec.js"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",

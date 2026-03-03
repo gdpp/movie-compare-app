@@ -1,50 +1,40 @@
 import Koa from "koa";
-import Router from "@koa/router";
 import bodyParser from "koa-bodyparser";
 import cors from "@koa/cors";
 import helmet from "koa-helmet";
 import dotenv from "dotenv";
 
+// routes imports
+import searchRoutes from "./routes/search.routes.js";
+import healthRoutes from "./routes/health.routes.js";
+
 dotenv.config();
 
 const app = new Koa();
-const router = new Router();
+
+// Global Error Handling Middleware
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (error) {
+    console.error(error);
+
+    ctx.status = error.status || 500;
+    ctx.body = {
+      error: error.message || "Internal Server Error",
+    };
+  }
+});
 
 // Global Middlewares
 app.use(helmet());
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
-  }),
-);
+app.use(cors());
 app.use(bodyParser());
 
-// Health Check Route
-router.get("/health", (ctx) => {
-  ctx.status = 200;
-  ctx.body = {
-    success: true,
-    message: "API is running",
-  };
-});
-
-// Routes Placeholder
-/*
-// --------------------
-// Global Error Handler
-// --------------------
-
-app.use((err, req, res, next) => {
-  console.error(err);
-
-  res.status(err.status || 500).json({
-    success: false,
-    error: err.message || "Internal Server Error",
-  });
-});
-*/
-
-app.use(router.routes());
-app.use(router.allowedMethods());
+// Routes
+app.use(healthRoutes.routes());
+app.use(healthRoutes.allowedMethods());
+app.use(searchRoutes.routes());
+app.use(searchRoutes.allowedMethods());
 
 export default app;

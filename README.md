@@ -133,12 +133,6 @@ Verify:
 docker --version
 ```
 
-run the docker-compose file
-
-```bash
-docker compose up -d
-```
-
 ##### Option B: Install MySQL Locally
 
 Download:
@@ -166,19 +160,27 @@ cd movie-compare-app
 
 ### 6. Backend Setup
 
+```bash
+cd backend
+yarn
+```
+
 Create .env file based on .env.example.
 
 ```env
 PORT=8000
-FRONTEND_URL=http://localhost:3000
 
 DB_HOST=localhost
 DB_PORT=3306
-DB_NAME=movie_app
+DB_NAME=movie_compare
 DB_USER=root
-DB_PASSWORD=root || your_password
+DB_PASSWORD=root or your_password
+DB_DIALECT=mysql
+
+FRONTEND_URL=http://localhost:3000
 
 OMDB_API_KEY=your_api_key_here
+OMDB_BASE_URL=https://www.omdbapi.com/
 ```
 
 You must obtain a free API key from:
@@ -187,12 +189,20 @@ https://www.omdbapi.com/apikey.aspx
 
 ### 7. Run Backend
 
+Run the docker-compose file
+
+```bash
+docker compose up -d
+```
+
+Run the server
+
 ```bash
 yarn dev
 ```
 
 Verify:
 
-```bash
-http://localhost:8000/health
+```code
+http://localhost:8000/api/health
 ```
