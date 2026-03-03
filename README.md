@@ -16,18 +16,18 @@ movie-compare-app/
 └── README.md     → General documentation
 ```
 
-#### High-Level Architecture
+### High-Level Architecture
 
 Client → Backend API → OMDB API
 Client → Backend API → MySQL Database
 
-#### Architectural Decisions
+### Architectural Decisions
 
 - The frontend does not call OMDB directly.
 - The backend acts as a proxy and integration layer.
 - The database stores only persistent application data (watchlist).
 
-#### Why this architecture?
+### Why this architecture?
 
 - Centralized API integration
 - Better security (API keys not exposed)
@@ -36,7 +36,7 @@ Client → Backend API → MySQL Database
 
 ## Tech Stack
 
-#### Backend
+### Backend
 
 - Node.js
 - Koa
@@ -45,14 +45,14 @@ Client → Backend API → MySQL Database
 - Jest (unit & integration testing)
 - ESLint + Prettier
 
-#### Frontend
+### Frontend
 
 - React (Hooks, ES6)
 - Zustand (state management)
 - MUI (styling)
 - Vitest (unit testing)
 
-#### Tooling
+### Tooling
 
 - Docker (for MySQL containerized setup)
 - Git
@@ -60,9 +60,7 @@ Client → Backend API → MySQL Database
 - Yarn
 - ChatGPT
 
-## Local Development Setup
-
-### From Zero to Running
+## Local Development Setup (From Zero to Running)
 
 > Nothing installed. Nothing configured. Just willingness and coffee.
 
@@ -70,7 +68,7 @@ If you're starting from a completely clean machine, follow this guide step by st
 
 If you already have Node.js, Git, and Docker installed, you can skip to **Step 5 – Clone and Run the Project.**
 
-#### 1. Install Git
+### 1. Install Git
 
 Required to clone the repository.
 
@@ -84,7 +82,7 @@ Verify installation:
 git --version
 ```
 
-#### 2. Install Node.js
+### 2. Install Node.js
 
 This project uses Node.js 18+ (recommended: latest LTS).
 
@@ -99,7 +97,7 @@ node --version
 npm --version
 ```
 
-#### 3. Install Yarn (Package Manager)
+### 3. Install Yarn (Package Manager)
 
 We use Yarn instead of npm for consistency.
 
@@ -115,13 +113,13 @@ Verify:
 yarn --version
 ```
 
-#### 4. Database Setup (Choose One Option)
+### 4. Database Setup (Choose One Option)
 
 The backend requires MySQL.
 
 You have two options:
 
-###### Option A (Recommended): Use Docker
+##### Option A (Recommended): Use Docker
 
 This ensures consistent environment across machines.
 
@@ -141,7 +139,7 @@ run the docker-compose file
 docker compose up -d
 ```
 
-###### Option B: Install MySQL Locally
+##### Option B: Install MySQL Locally
 
 Download:
 
@@ -159,14 +157,14 @@ You can verify with:
 mysql -u root -p
 ```
 
-#### 5. Clone the Repository
+### 5. Clone the Repository
 
 ```bash
 git clone https://github.com/gdpp/movie-compare-app.git
 cd movie-compare-app
 ```
 
-#### 6. Backend Setup
+### 6. Backend Setup
 
 Create .env file based on .env.example.
 
@@ -186,3 +184,15 @@ OMDB_API_KEY=your_api_key_here
 You must obtain a free API key from:
 
 https://www.omdbapi.com/apikey.aspx
+
+### 7. Run Backend
+
+```bash
+yarn dev
+```
+
+Verify:
+
+```bash
+http://localhost:8000/health
+```
