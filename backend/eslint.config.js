@@ -14,6 +14,9 @@ export default [
         ...globals.node,
       },
     },
+    rules: {
+      "no-unused-vars": "off",
+    },
   },
 
   // General configuration for tests
