@@ -5,8 +5,9 @@ import helmet from "koa-helmet";
 import dotenv from "dotenv";
 
 // routes imports
-import searchRoutes from "./routes/search.routes.js";
 import healthRoutes from "./routes/health.routes.js";
+import searchRoutes from "./routes/search.routes.js";
+import movieRoutes from "./routes/movie.routes.js";
 
 dotenv.config();
 
@@ -36,5 +37,7 @@ app.use(healthRoutes.routes());
 app.use(healthRoutes.allowedMethods());
 app.use(searchRoutes.routes());
 app.use(searchRoutes.allowedMethods());
+app.use(movieRoutes.routes());
+app.use(movieRoutes.allowedMethods());
 
 export default app;

@@ -1,4 +1,4 @@
-import { searchMovies } from "../services/omdb.service.js";
+import { searchMovies } from "../services/omdb.search.service.js";
 
 export const search = async (ctx) => {
   // s => search query

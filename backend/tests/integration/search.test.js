@@ -5,7 +5,7 @@ import request from "supertest";
 const mockSearchMovies = jest.fn();
 
 // Mock the module before import
-jest.unstable_mockModule("../../src/services/omdb.service.js", () => ({
+jest.unstable_mockModule("../../src/services/omdb.search.service.js", () => ({
   searchMovies: mockSearchMovies,
 }));
 
