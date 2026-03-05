@@ -1,5 +1,5 @@
 import { getMovieById } from "../services/omdb.movie.service.js";
-import { buildComparison } from "../utils/comparison.utils.js";
+import { buildComparison } from "../utils/comparisonUtils.js";
 
 const imdbRegex = /^tt\d{7,8}$/;
 
