@@ -21,7 +21,7 @@ export const getMovie = async (ctx) => {
     if (data.Response === "False") {
       ctx.status = 404;
       ctx.body = {
-        error: data.Error || "Movie not found",
+        error: "Movie not found!",
       };
 
       return;
