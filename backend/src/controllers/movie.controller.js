@@ -27,6 +27,13 @@ export const getMovie = async (ctx) => {
       return;
     }
 
+    // Validation for series
+    if (data.Type === "series" && data.totalSeasons) {
+      data.totalSeasons = Number(data.totalSeasons);
+    } else {
+      delete data.totalSeasons;
+    }
+
     ctx.status = 200;
     ctx.body = data;
   } catch (error) {

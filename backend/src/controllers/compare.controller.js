@@ -86,9 +86,19 @@ export async function compareMovies(ctx) {
 
     ctx.status = 200;
     ctx.body = {
+      movies: movies.map((m) => ({
+        Title: m.Title,
+        imdbID: m.imdbID,
+        imdbRating: m.imdbRating,
+        Year: m.Year,
+        Runtime: m.Runtime,
+        Genre: m.Genre,
+        Metascore: m.Metascore,
+        BoxOffice: m.BoxOffice,
+      })),
+      comparison,
       comparedAt,
       movieCount: movies.length,
-      ...comparison,
     };
   } catch (error) {
     // 500: OMDb failure or unexpected error

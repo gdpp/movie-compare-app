@@ -1,6 +1,19 @@
 # Movie Comparison App
 
-A full-stack application that allows users to search movies using the OMDB API, compare them side-by-side, and save selected movies into a persistent watchlist.
+Build a full-stack application that allows users to search for movies and compare them
+side-by-side. The application should fetch data from the OMDB API and present a clear,
+visual comparison of movie details.
+
+## Features
+
+- Search movies by title using OMDB API
+- View detailed movie metadata
+- Compare up to 5 movies side-by-side
+- Visualize IMDb rating comparisons
+- View recent comparisons
+- Responsive UI built with Material UI
+- Backend proxy to protect API keys
+- Persistent comparison history
 
 ## Architecture Overview
 
@@ -11,9 +24,10 @@ This project follows a monorepo structure with separated frontend and backend ap
 ```
 movie-compare-app/
 │
-├── backend/      → Node.js + Koa + Sequelize + MySQL
-├── frontend/     → React + Zustand + MUI
-└── README.md     → General documentation
+├── backend/           → Node.js + Koa + Sequelize + MySQL
+├── frontend/          → React + Zustand + MUI
+├── docker-compose     → Docker database container
+└── README.md          → General documentation
 ```
 
 ### High-Level Architecture
@@ -58,7 +72,6 @@ Client → Backend API → MySQL Database
 - Git
 - VS Code
 - Yarn
-- ChatGPT
 
 ## Local Development Setup (From Zero to Running)
 
@@ -183,7 +196,7 @@ OMDB_API_KEY=your_api_key_here
 OMDB_BASE_URL=https://www.omdbapi.com/
 ```
 
-You must obtain a free API key from:
+You must obtain and activate a free API key from:
 
 https://www.omdbapi.com/apikey.aspx
 
@@ -206,3 +219,7 @@ Verify:
 ```code
 http://localhost:8000/api/health
 ```
+
+### 8. Frontend Setup
+
+TBD
