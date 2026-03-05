@@ -26,7 +26,7 @@ movie-compare-app/
 │
 ├── backend/           → Node.js + Koa + Sequelize + MySQL
 ├── frontend/          → React + Zustand + MUI
-├── docker-compose     → Docker database container
+├── docker-compose.yml → MySQL container for local development
 └── README.md          → General documentation
 ```
 
