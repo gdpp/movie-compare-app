@@ -1,8 +1,8 @@
-import { List, Skeleton, Alert } from "@mui/material";
+import { List, Skeleton } from "@mui/material";
 import MovieResultItem from "../movies/MovieResultItem";
 
-const SearchResultsList = ({ movies, loading, query }) => {
-  if (!query) return null;
+const SearchResultsList = ({ movies, loading, query, error }) => {
+  if (!query?.trim()) return null;
 
   if (loading)
     return (
@@ -13,7 +13,9 @@ const SearchResultsList = ({ movies, loading, query }) => {
       </>
     );
 
-  if (!movies?.length) return <Alert severity="error">Movie not found.</Alert>;
+  if (!movies?.length) return null;
+
+  if (error) return null;
 
   return (
     <List>

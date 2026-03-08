@@ -7,6 +7,5 @@ export default function useMovieSearch(params) {
     queryFn: searchMovies,
     enabled: !!params?.s && params.s.length >= 2,
     staleTime: 1000 * 60 * 2,
-    select: (data) => data?.Search?.slice(0, 10) || [],
   });
 }

@@ -1,5 +1,9 @@
 import { getMovieById } from "../services/omdb.movie.service.js";
 import { buildComparison } from "../utils/comparisonUtils.js";
+import {
+  createComparison,
+  findComparisonByKey,
+} from "../repositories/comparisonRepository.js";
 
 const imdbRegex = /^tt\d{7,8}$/;
 
@@ -46,6 +50,8 @@ export async function compareMovies(ctx) {
 
     // 400: Duplicate IDs
     const uniqueIds = new Set(imdbIds);
+    const sortedIds = [...uniqueIds].sort();
+    const comparisonKey = sortedIds.join("-");
 
     if (uniqueIds.size !== imdbIds.length) {
       ctx.status = 400;
@@ -81,8 +87,23 @@ export async function compareMovies(ctx) {
 
     // Build comparison
     const comparison = buildComparison(movies);
-
     const comparedAt = new Date();
+
+    // Prepare data to store comparison
+    const titles = movies.map((m) => m.Title);
+
+    // Check if comparison already exists
+    const existingComparison = await findComparisonByKey(comparisonKey);
+
+    // Save comparison in DB
+    // Save only if it doesn't exist
+    if (!existingComparison) {
+      await createComparison({
+        imdbIds: sortedIds,
+        titles,
+        comparisonKey,
+      });
+    }
 
     ctx.status = 200;
     ctx.body = {

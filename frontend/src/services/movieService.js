@@ -8,9 +8,9 @@ export const searchMovies = async ({ queryKey, signal }) => {
     signal,
   });
 
-  // if (data.Response === "False") {
-  //   throw new Error(error.response.data.Error);
-  // }
+  if (data?.Response === "False") {
+    throw new Error(data?.Error);
+  }
 
   return data;
 };

@@ -9,6 +9,7 @@ import healthRoutes from "./routes/health.routes.js";
 import searchRoutes from "./routes/search.routes.js";
 import movieRoutes from "./routes/movie.routes.js";
 import compareRoutes from "./routes/compare.routes.js";
+import comparisonRoutes from "./routes/comparison.routes.js";
 
 dotenv.config();
 
@@ -41,6 +42,8 @@ app.use(searchRoutes.allowedMethods());
 app.use(movieRoutes.routes());
 app.use(movieRoutes.allowedMethods());
 app.use(compareRoutes.routes());
-app.use(movieRoutes.allowedMethods());
+app.use(compareRoutes.allowedMethods());
+app.use(comparisonRoutes.routes());
+app.use(comparisonRoutes.allowedMethods());
 
 export default app;

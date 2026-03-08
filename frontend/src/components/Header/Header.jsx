@@ -1,7 +1,6 @@
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
-// import MovieIcon from "@mui/icons-material/Movie";
-// import HomeIcon from "@mui/icons-material/Home";
-// import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
+import HomeIcon from "@mui/icons-material/Home";
+import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import { Link, useLocation } from "react-router";
 
 const Header = () => {
@@ -12,27 +11,11 @@ const Header = () => {
   return (
     <AppBar position="static" elevation={2}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          {/* <MovieIcon fontSize="large" /> */}
-          <Typography
-            variant="h5"
-            component={Link}
-            to="/"
-            sx={{
-              textDecoration: "none",
-              color: "inherit",
-              fontWeight: 600,
-              letterSpacing: 1,
-            }}
-          >
-            MovieScope
-          </Typography>
-        </Box>
         <Box sx={{ display: "flex", gap: 2 }}>
           <Button
             component={Link}
             to="/"
-            // startIcon={<HomeIcon />}
+            startIcon={<HomeIcon />}
             color={isActive("/") ? "secondary" : "inherit"}
             variant={isActive("/") ? "contained" : "text"}
             sx={{
@@ -50,7 +33,7 @@ const Header = () => {
           <Button
             component={Link}
             to="/compare"
-            // startIcon={<CompareArrowsIcon />}
+            startIcon={<CompareArrowsIcon />}
             color={isActive("/compare") ? "secondary" : "inherit"}
             variant={isActive("/compare") ? "contained" : "text"}
             sx={{
