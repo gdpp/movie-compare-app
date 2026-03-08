@@ -8,7 +8,7 @@ export const recentComparisons = async (ctx) => {
   if (!comparisons.length) {
     ctx.body = {
       message:
-        "No property comparisons available yet. Start comparing properties to see results here.",
+        "No movies comparisons available yet. Start comparing movies to see results here.",
       data: [],
     };
     return;

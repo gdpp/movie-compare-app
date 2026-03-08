@@ -5,7 +5,7 @@ const db = new Map();
 const rateLimiter = ratelimit({
   driver: "memory",
   db: db,
-  duration: 60000, // 1 minuto
+  duration: 60000, // 1 minute
   errorMessage: "Too many requests, please try again later.",
   id: (ctx) => ctx.ip,
   max: 60,
