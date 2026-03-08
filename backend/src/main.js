@@ -11,28 +11,24 @@ import movieRoutes from "./routes/movie.routes.js";
 import compareRoutes from "./routes/compare.routes.js";
 import comparisonRoutes from "./routes/comparison.routes.js";
 
+// Middlewares
+import rateLimiter from "./middleware/rateLimiter.middleware.js";
+import errorHandler from "./middleware/errorHandler.middleware.js";
+
 dotenv.config();
 
 const app = new Koa();
-
-// Global Error Handling Middleware
-app.use(async (ctx, next) => {
-  try {
-    await next();
-  } catch (error) {
-    console.error(error);
-
-    ctx.status = error.status || 500;
-    ctx.body = {
-      error: error.message || "Internal Server Error",
-    };
-  }
-});
 
 // Global Middlewares
 app.use(helmet());
 app.use(cors());
 app.use(bodyParser());
+
+// Error Handling Middleware
+app.use(errorHandler);
+
+// Ratelimiter Middleware
+app.use(rateLimiter);
 
 // Routes
 app.use(healthRoutes.routes());

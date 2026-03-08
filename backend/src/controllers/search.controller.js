@@ -1,3 +1,5 @@
+import logger from "../utils/logger.js";
+
 import { searchMovies } from "../services/omdb.search.service.js";
 
 export const search = async (ctx) => {
@@ -16,7 +18,7 @@ export const search = async (ctx) => {
     return;
   }
 
-  if (page && page < 1) {
+  if (page != null && page !== "" && Number(page) < 1) {
     ctx.status = 400;
     ctx.body = {
       Response: "False",
@@ -35,8 +37,20 @@ export const search = async (ctx) => {
       Error: "Movie not found!",
     };
 
+    logger.error(data.Error, "Search failed");
+
     return;
   }
+
+  logger.info(
+    {
+      query: ctx.query.s,
+      page: ctx.query.page,
+      type: ctx.query.type,
+      ip: ctx.ip,
+    },
+    "Movie search request",
+  );
 
   ctx.status = 200;
   ctx.body = data;

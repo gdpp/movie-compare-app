@@ -4,6 +4,11 @@ export default {
   coverageDirectory: "coverage",
   collectCoverageFrom: ["src/**/*.js"],
   moduleFileExtensions: ["js"],
+  testMatch: [
+    "**/tests/unit/**/*.test.js",
+    "**/tests/integration/**/*.test.js",
+  ],
+  coveragePathIgnorePatterns: ["/node_modules/", "/tests/"],
   coverageThreshold: {
     global: {
       branches: 70,

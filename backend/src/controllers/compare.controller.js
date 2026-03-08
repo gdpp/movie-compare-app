@@ -1,3 +1,5 @@
+import logger from "../utils/logger.js";
+
 import { getMovieById } from "../services/omdb.movie.service.js";
 import { buildComparison } from "../utils/comparisonUtils.js";
 import {
@@ -8,6 +10,14 @@ import {
 const imdbRegex = /^tt\d{7,8}$/;
 
 export async function compareMovies(ctx) {
+  logger.info(
+    {
+      imdbIds: ctx.request.body.imdbIds,
+      ip: ctx.ip,
+    },
+    "Movie comparison requested",
+  );
+
   try {
     const { imdbIds } = ctx.request.body;
 
@@ -105,6 +115,13 @@ export async function compareMovies(ctx) {
       });
     }
 
+    logger.info(
+      {
+        movieCount: movies.length,
+      },
+      "Movies compared successfully",
+    );
+
     ctx.status = 200;
     ctx.body = {
       movies: movies.map((m) => ({
@@ -123,6 +140,7 @@ export async function compareMovies(ctx) {
     };
   } catch (error) {
     // 500: OMDb failure or unexpected error
+    logger.error(error, "Movie comparison failed");
     ctx.status = 500;
     ctx.body = {
       error: "Failed to fetch movie data",
