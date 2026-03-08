@@ -2,7 +2,7 @@ import { TextField } from "@mui/material";
 import debounce from "lodash.debounce";
 import { useMemo } from "react";
 
-const MovieSearchInput = ({ onSearch }) => {
+const MovieSearchInput = ({ onSearch, onFocus }) => {
   const debouncedSearch = useMemo(() => debounce(onSearch, 500), [onSearch]);
 
   const handleChange = (e) => {
@@ -10,7 +10,12 @@ const MovieSearchInput = ({ onSearch }) => {
   };
 
   return (
-    <TextField fullWidth label="Search movies..." onChange={handleChange} />
+    <TextField
+      fullWidth
+      label="Search movies..."
+      onChange={handleChange}
+      onFocus={onFocus}
+    />
   );
 };
 

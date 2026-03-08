@@ -1,6 +1,6 @@
-## Overview
+# MovieScope Backend
 
-This is the backend API for the Movie Compare App. It exposes endpoints to:
+This is the backend API for the MovieScope App. It exposes endpoints to:
 
 - Search movies via OMDb
 - Fetch a movie by IMDb ID
