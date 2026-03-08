@@ -1,13 +1,11 @@
 import logger from "../utils/logger.js";
-
 import { getMovieById } from "../services/omdb.movie.service.js";
 import { buildComparison } from "../utils/comparisonUtils.js";
 import {
   createComparison,
   findComparisonByKey,
 } from "../repositories/comparisonRepository.js";
-
-const imdbRegex = /^tt\d{7,8}$/;
+import { isValidImdbId } from "../utils/imdb.js";
 
 export async function compareMovies(ctx) {
   logger.info(
@@ -24,37 +22,52 @@ export async function compareMovies(ctx) {
     // 400: Missing/empty array
     if (!imdbIds) {
       ctx.status = 400;
-      ctx.body = { error: "imdbIds array is required" };
+      ctx.body = {
+        Response: "False",
+        Error: "imdbIds array is required",
+      };
       return;
     }
 
     // 400: Not an array
     if (!Array.isArray(imdbIds)) {
       ctx.status = 400;
-      ctx.body = { error: "imdbIds must be an array" };
+      ctx.body = {
+        Response: "False",
+        Error: "imdbIds must be an array",
+      };
       return;
     }
 
     // 400: Too few movies
     if (imdbIds.length < 2) {
       ctx.status = 400;
-      ctx.body = { error: "At least 2 movies required for comparison" };
+      ctx.body = {
+        Response: "False",
+        Error: "At least 2 movies required for comparison",
+      };
       return;
     }
 
     // 400: Too many movies
     if (imdbIds.length > 5) {
       ctx.status = 400;
-      ctx.body = { error: "Maximum 5 movies can be compared at once" };
+      ctx.body = {
+        Response: "False",
+        Error: "Maximum 5 movies can be compared at once",
+      };
       return;
     }
 
     // 400: Invalid format
-    const invalidIds = imdbIds.filter((id) => !imdbRegex.test(id));
+    const invalidIds = imdbIds.filter((id) => !isValidImdbId(id));
 
     if (invalidIds.length > 0) {
       ctx.status = 400;
-      ctx.body = { error: "All IMDb IDs must be valid format" };
+      ctx.body = {
+        Response: "False",
+        Error: "All IMDb IDs must be valid format",
+      };
       return;
     }
 
@@ -66,7 +79,8 @@ export async function compareMovies(ctx) {
     if (uniqueIds.size !== imdbIds.length) {
       ctx.status = 400;
       ctx.body = {
-        error: "Duplicate IMDb IDs found. All movies must be unique",
+        Response: "False",
+        Error: "Duplicate IMDb IDs found. All movies must be unique",
       };
       return;
     }
@@ -89,7 +103,8 @@ export async function compareMovies(ctx) {
     if (missing.length > 0) {
       ctx.status = 404;
       ctx.body = {
-        error: "One or more movies not found",
+        Response: "False",
+        Error: "One or more movies not found",
         missing,
       };
       return;

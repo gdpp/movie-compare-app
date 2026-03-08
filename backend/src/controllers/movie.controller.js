@@ -1,17 +1,16 @@
 import logger from "../utils/logger.js";
-
 import { getMovieById } from "../services/omdb.movie.service.js";
-
-const imdbRegex = /^tt\d{7,8}$/;
+import { isValidImdbId } from "../utils/imdb.js";
 
 export const getMovie = async (ctx) => {
   const { imdbId } = ctx.params;
 
   // Format validation
-  if (!imdbRegex.test(imdbId)) {
+  if (!isValidImdbId(imdbId)) {
     ctx.status = 400;
     ctx.body = {
-      error: "Invalid IMDb ID format. Must be 'tt' followed by 7-8 digits",
+      Response: "False",
+      Error: "Invalid IMDb ID format. Must be 'tt' followed by 7-8 digits",
     };
 
     return;
@@ -23,7 +22,8 @@ export const getMovie = async (ctx) => {
     if (data.Response === "False") {
       ctx.status = 404;
       ctx.body = {
-        error: "Movie not found!",
+        Response: "False",
+        Error: "Movie not found!",
       };
 
       return;

@@ -7,7 +7,8 @@ export const recentComparisons = async (ctx) => {
 
   if (!comparisons.length) {
     ctx.body = {
-      message:
+      Response: "False",
+      Error:
         "No movies comparisons available yet. Start comparing movies to see results here.",
       data: [],
     };
@@ -15,6 +16,7 @@ export const recentComparisons = async (ctx) => {
   }
 
   ctx.body = {
+    Response: "True",
     message: "Comparisons found",
     data: comparisons,
   };
