@@ -32,12 +32,9 @@ export const search = async (ctx) => {
 
   if (data.Response === "False") {
     ctx.status = 404;
-    ctx.body = {
-      Response: "False",
-      Error: "Movie not found!",
-    };
+    ctx.body = data;
 
-    logger.error(data.Error, "Search failed");
+    logger.error({ error: data.Error, query: s }, "Search failed");
 
     return;
   }

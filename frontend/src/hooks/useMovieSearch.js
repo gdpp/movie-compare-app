@@ -5,7 +5,7 @@ export default function useMovieSearch(params) {
   return useQuery({
     queryKey: ["movie-search", params],
     queryFn: searchMovies,
-    enabled: !!params?.s && params.s.length >= 2,
+    enabled: !!params?.s && params.s.length >= 3,
     staleTime: 1000 * 60 * 2,
   });
 }

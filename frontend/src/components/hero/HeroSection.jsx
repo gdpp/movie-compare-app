@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Box, Container, Paper, Alert } from "@mui/material";
 import MovieSearchInput from "./MovieSearchInput";
 import SearchResultsList from "./SearchResultsList";
@@ -9,41 +9,36 @@ import { useMovieModal } from "../../hooks/useMovieModal";
 
 const HeroSection = () => {
   const [query, setQuery] = useState("");
-  const [userClosedDropdown, setUserClosedDropdown] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(true);
   const searchAreaRef = useRef(null);
-  const { openMovieModal } = useMovieModal();
+  const { open } = useMovieModal();
 
-  const handleSelectMovie = useCallback(
-    (movie) => {
-      if (movie?.imdbID) {
-        openMovieModal(movie.imdbID);
-        setUserClosedDropdown(true);
-      }
-    },
-    [openMovieModal],
-  );
+  const onSelectMovie = (movie) => {
+    if (movie?.imdbID) {
+      open(movie.imdbID);
+      setDropdownOpen(false);
+    }
+  };
 
   const { data, isLoading, error } = useMovieSearch({
     s: query,
   });
 
   const hasQuery = query?.trim().length >= 2;
-  const hasResults = Boolean(hasQuery && !error && data?.Search?.length > 0);
-  const showDropdown = hasResults && !userClosedDropdown;
+  const hasResults = hasQuery && !error && data?.Search?.length > 0;
+  const showDropdown = hasResults && dropdownOpen;
 
-  const handleSearch = (value) => {
+  const onSearch = (value) => {
     setQuery(value);
-    setUserClosedDropdown(false);
+    setDropdownOpen(true);
   };
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (searchAreaRef.current && !searchAreaRef.current.contains(e.target)) {
-        setUserClosedDropdown(true);
-      }
+    const fn = (e) => {
+      if (searchAreaRef.current && !searchAreaRef.current.contains(e.target)) setDropdownOpen(false);
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", fn);
+    return () => document.removeEventListener("mousedown", fn);
   }, []);
 
   return (
@@ -68,32 +63,16 @@ const HeroSection = () => {
         <Box ref={searchAreaRef} sx={{ position: "relative" }}>
           <HeroTitle />
 
-          <MovieSearchInput
-            onSearch={handleSearch}
-            onFocus={() => hasResults && setUserClosedDropdown(false)}
-          />
+          <MovieSearchInput onSearch={onSearch} onFocus={() => hasResults && setDropdownOpen(true)} />
 
           {showDropdown && (
-            <Paper
-              sx={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                width: "100%",
-                zIndex: 10,
-                maxHeight: "min(350px, 55vh)",
-                overflow: "auto",
-                mt: 1,
-              }}
-            >
+            <Paper sx={{ position: "absolute", left: 0, right: 0, zIndex: 10, maxHeight: 320, overflow: "auto", mt: 1 }}>
               <SearchResultsList
-                key={query}
                 movies={data?.Search}
                 loading={isLoading}
                 query={query}
                 error={error}
-                onClose={() => setUserClosedDropdown(true)}
-                onSelectMovie={handleSelectMovie}
+                onSelectMovie={onSelectMovie}
               />
             </Paper>
           )}

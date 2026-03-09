@@ -19,7 +19,7 @@ export const getMovieById = async (imdbId) => {
     params: {
       apikey: API_KEY,
       i: imdbId,
-      plot: "full",
+      plot: "short",
     },
   });
 

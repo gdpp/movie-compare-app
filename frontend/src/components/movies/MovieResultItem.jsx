@@ -1,13 +1,8 @@
-import { Avatar, ListItem, ListItemText, Chip } from "@mui/material";
+import { Avatar, ListItemButton, ListItemText, Chip } from "@mui/material";
 
-const MovieResultItem = ({ movie }) => {
+export default function MovieResultItem({ movie, onClick }) {
   return (
-    <ListItem
-      sx={{
-        py: 0.5,
-        px: 1,
-      }}
-    >
+    <ListItemButton onClick={onClick} sx={{ py: 0.5, px: 1 }}>
       <Avatar
         src={movie.Poster}
         variant="rounded"
@@ -37,8 +32,6 @@ const MovieResultItem = ({ movie }) => {
           fontSize: 11,
         }}
       />
-    </ListItem>
+    </ListItemButton>
   );
-};
-
-export default MovieResultItem;
+}
