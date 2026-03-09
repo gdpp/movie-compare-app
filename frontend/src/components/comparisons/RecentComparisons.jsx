@@ -2,12 +2,25 @@ import { Box, Typography, Button, Stack } from "@mui/material";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import { useNavigate } from "react-router";
 import ComparisonCard from "./ComparisonCard";
-import { mockRecentComparisons } from "./mockRecentComparisons";
+import { useRecentComparisons } from "../../hooks/useRecentComparisons";
 
 const RecentComparisons = () => {
   const navigate = useNavigate();
 
-  const comparisons = mockRecentComparisons;
+  const { comparisons, loading } = useRecentComparisons();
+
+  console.log("Recent Comparisons:", comparisons);
+  if (loading) {
+    return <Typography>Loading recent comparisons...</Typography>;
+  }
+
+  if (!comparisons.length) {
+    return (
+      <Typography color="text.secondary" align="center" sx={{ mt: 4 }}>
+        No comparisons yet. Start comparing movies to see them here.
+      </Typography>
+    );
+  }
 
   return (
     <Box sx={{ mt: 6 }}>

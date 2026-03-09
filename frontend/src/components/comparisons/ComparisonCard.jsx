@@ -19,18 +19,30 @@ const ComparisonCard = ({ comparison }) => {
         },
       }}
     >
-      <CardContent sx={{ p: 2 }}>
+      <CardContent
+        sx={{ p: 2, display: "flex", flexDirection: "column", height: "100%" }}
+      >
         <Typography variant="subtitle1" fontWeight={600} gutterBottom>
           {movieCount} Movies
         </Typography>
 
         <Stack spacing={0.5} sx={{ mb: 1 }}>
           {titles.map((title) => (
-            <Chip key={title} label={title} size="small" variant="outlined" />
+            <Chip
+              key={title}
+              label={title}
+              size="small"
+              variant="outlined"
+              color="secondary"
+            />
           ))}
         </Stack>
 
-        <Typography variant="caption" color="text.secondary">
+        <Typography
+          variant="caption"
+          color="text.secondary"
+          sx={{ marginTop: "auto" }}
+        >
           {formattedDate}
         </Typography>
       </CardContent>
