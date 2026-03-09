@@ -9,7 +9,6 @@ const RecentComparisons = () => {
 
   const { comparisons, loading } = useRecentComparisons();
 
-  console.log("Recent Comparisons:", comparisons);
   if (loading) {
     return <Typography>Loading recent comparisons...</Typography>;
   }

@@ -1,13 +1,13 @@
-import { List, Skeleton } from "@mui/material";
+import { Box, Typography, List, Skeleton } from "@mui/material";
 import MovieResultItem from "../movies/MovieResultItem";
 
-export default function SearchResultsList({
+const CompareSearchResultsList = ({
   movies,
   loading,
   query,
   error,
   onSelectMovie,
-}) {
+}) => {
   if (!query?.trim()) return null;
   if (loading)
     return (
@@ -20,7 +20,7 @@ export default function SearchResultsList({
   if (error || !movies?.length) return null;
 
   return (
-    <List sx={{ py: 0, maxHeight: "inherit", overflow: "auto" }}>
+    <List disablePadding>
       {movies.map((movie) => (
         <MovieResultItem
           key={movie.imdbID}
@@ -30,4 +30,6 @@ export default function SearchResultsList({
       ))}
     </List>
   );
-}
+};
+
+export default CompareSearchResultsList;

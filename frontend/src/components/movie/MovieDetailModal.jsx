@@ -13,6 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import useMovieDetails from "../../hooks/useMovieDetails";
 import { useMovieModal } from "../../hooks/useMovieModal";
+import { useCompare } from "../../context/CompareContext";
 
 const FIELDS = [
   ["Rated", "Rated"],
@@ -34,19 +35,24 @@ function getRating(ratings, name) {
 
 export default function MovieDetailModal() {
   const { selectedMovieId, close } = useMovieModal();
+
   const navigate = useNavigate();
+  const { addMovie } = useCompare();
+
   const {
     data: movie,
     isLoading,
     isError,
     error,
   } = useMovieDetails(selectedMovieId ?? "");
+
   const open = Boolean(selectedMovieId);
 
   const onCompare = () => {
     if (movie) {
+      addMovie(movie);
       close();
-      navigate("/compare", { state: { initialMovie: movie } });
+      navigate("/compare");
     }
   };
 
@@ -148,7 +154,7 @@ export default function MovieDetailModal() {
                   }}
                 >
                   <Typography variant="body2" color="text.secondary">
-                    Sin póster
+                    No poster available
                   </Typography>
                 </Box>
               )}
@@ -160,11 +166,9 @@ export default function MovieDetailModal() {
                 onClick={onCompare}
                 sx={{ mt: 2, py: 1.5, fontWeight: 600 }}
               >
-                Comparar
+                Compare
               </Button>
             </Box>
-
-            {/* Columna derecha: título, ratings, sinopsis, ficha */}
             <Box sx={{ flex: 1, minWidth: 0, overflow: "auto" }}>
               <Typography
                 component="h2"
@@ -184,7 +188,6 @@ export default function MovieDetailModal() {
                     .join(" · ")}
                 </Typography>
               )}
-
               <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", mb: 2 }}>
                 {movie.imdbRating && movie.imdbRating !== "N/A" && (
                   <Chip

@@ -35,7 +35,8 @@ const HeroSection = () => {
 
   useEffect(() => {
     const fn = (e) => {
-      if (searchAreaRef.current && !searchAreaRef.current.contains(e.target)) setDropdownOpen(false);
+      if (searchAreaRef.current && !searchAreaRef.current.contains(e.target))
+        setDropdownOpen(false);
     };
     document.addEventListener("mousedown", fn);
     return () => document.removeEventListener("mousedown", fn);
@@ -63,10 +64,23 @@ const HeroSection = () => {
         <Box ref={searchAreaRef} sx={{ position: "relative" }}>
           <HeroTitle />
 
-          <MovieSearchInput onSearch={onSearch} onFocus={() => hasResults && setDropdownOpen(true)} />
+          <MovieSearchInput
+            onSearch={onSearch}
+            onFocus={() => hasResults && setDropdownOpen(true)}
+          />
 
           {showDropdown && (
-            <Paper sx={{ position: "absolute", left: 0, right: 0, zIndex: 10, maxHeight: 320, overflow: "auto", mt: 1 }}>
+            <Paper
+              sx={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                zIndex: 10,
+                maxHeight: 320,
+                overflow: "auto",
+                mt: 1,
+              }}
+            >
               <SearchResultsList
                 movies={data?.Search}
                 loading={isLoading}
